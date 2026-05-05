@@ -1,0 +1,27 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Surfaces & Pastels</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body{margin:0;padding:20px;font-family:var(--cv-font-body);background:#fff}
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .sw{border-radius:14px;padding:14px;min-height:84px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--cv-border-soft)}
+  .name{font-weight:700;font-size:12px;color:var(--cv-navy-800)}
+  .hex{font-family:var(--cv-font-mono);font-size:10px;color:var(--cv-fg-3)}
+  .row2{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:10px}
+</style></head>
+<body>
+  <div class="grid">
+    <div class="sw" style="background:#FFFFFF"><div class="name">BG</div><div class="hex">#FFFFFF</div></div>
+    <div class="sw" style="background:#F7F7F4"><div class="name">BG soft</div><div class="hex">#F7F7F4</div></div>
+    <div class="sw" style="background:#FAF6EE"><div class="name">BG cream</div><div class="hex">#FAF6EE</div></div>
+    <div class="sw" style="background:#EAF5EE"><div class="name">BG mint</div><div class="hex">#EAF5EE</div></div>
+    <div class="sw" style="background:#0A1A33;border:none"><div class="name" style="color:#fff">BG navy</div><div class="hex" style="color:#C8D2E2">#0A1A33</div></div>
+  </div>
+  <div class="row2">
+    <div class="sw" style="background:#BFE9CF"><div class="name">Pastel mint</div><div class="hex">#BFE9CF</div></div>
+    <div class="sw" style="background:#C9E6F4"><div class="name">Pastel sky</div><div class="hex">#C9E6F4</div></div>
+    <div class="sw" style="background:#DCD2F2"><div class="name">Pastel lavender</div><div class="hex">#DCD2F2</div></div>
+    <div class="sw" style="background:#F8DEC8"><div class="name">Pastel peach</div><div class="hex">#F8DEC8</div></div>
+    <div class="sw" style="background:linear-gradient(110deg,#C9E6F4 0%,#BFE9CF 50%,#DCD2F2 100%)"><div class="name">Halo wash</div><div class="hex">gradient</div></div>
+  </div>
+</body></html>

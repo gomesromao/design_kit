@@ -1,0 +1,20 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Semantic colors</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body{margin:0;padding:20px;font-family:var(--cv-font-body);background:#fff}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .row{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px}
+  .dot{width:38px;height:38px;border-radius:999px;flex:0 0 38px}
+  .name{font-weight:700;font-size:13px;color:var(--cv-navy-800)}
+  .hex{font-family:var(--cv-font-mono);font-size:11px;color:var(--cv-fg-3)}
+  .label{font-size:11px;color:var(--cv-fg-3);font-weight:600;letter-spacing:0.06em;text-transform:uppercase}
+</style></head>
+<body>
+  <div class="grid">
+    <div class="row" style="background:#EAF5EE"><div class="dot" style="background:#50B080"></div><div><div class="label">Success</div><div class="name">Match found</div><div class="hex">#50B080</div></div></div>
+    <div class="row" style="background:#FEF6DA"><div class="dot" style="background:#F4C430"></div><div><div class="label">Warning</div><div class="name">In trial</div><div class="hex">#F4C430</div></div></div>
+    <div class="row" style="background:#FCEAEA"><div class="dot" style="background:#E54B4B"></div><div><div class="label">Error</div><div class="name">Action needed</div><div class="hex">#E54B4B</div></div></div>
+    <div class="row" style="background:#E6F4FB"><div class="dot" style="background:#2AB7F0"></div><div><div class="label">Info</div><div class="name">Tip</div><div class="hex">#2AB7F0</div></div></div>
+  </div>
+</body></html>

@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0B1E3F">
+  <title>Coconut VA — Design System</title>
+  <meta name="description" content="The Coconut VA design system canvas — colors, typography, components, and brand elements.">
+  <link rel="icon" type="image/png" href="./assets/logo-navy.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./tokens.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: var(--cv-font-body);
+      background: #F8F7F4;
+      color: var(--cv-fg-1);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ====== Topbar ====== */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(248, 247, 244, 0.85);
+      backdrop-filter: saturate(140%) blur(10px);
+      -webkit-backdrop-filter: saturate(140%) blur(10px);
+      border-bottom: 1px solid rgba(11, 30, 63, 0.06);
+    }
+    .topbar-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; color: inherit;
+    }
+    .brand img { height: 26px; width: auto; display: block; }
+    .brand-meta {
+      display: flex; flex-direction: column; line-height: 1.1;
+    }
+    .brand-meta strong {
+      font-size: 14px; font-weight: 700; color: var(--cv-navy-800);
+      letter-spacing: -0.005em;
+    }
+    .brand-meta span {
+      font-size: 11px; font-weight: 600; color: var(--cv-fg-3);
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .topbar-actions {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .tb-link {
+      font-size: 13px; font-weight: 600; color: var(--cv-fg-2);
+      text-decoration: none; padding: 8px 12px; border-radius: 999px;
+      transition: background 160ms ease;
+    }
+    .tb-link:hover { background: rgba(11, 30, 63, 0.05); }
+    .tb-cta {
+      font-size: 13px; font-weight: 700; color: #fff;
+      background: var(--cv-navy-800);
+      padding: 9px 16px; border-radius: 999px;
+      text-decoration: none;
+      transition: transform 140ms ease, background 160ms ease;
+    }
+    .tb-cta:hover { background: var(--cv-navy-700); transform: translateY(-1px); }
+
+    /* ====== Page shell ====== */
+    .shell {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 40px 24px 96px;
+    }
+
+    .page-head { margin-bottom: 36px; }
+    .page-head h1 {
+      font-family: var(--cv-font-display);
+      font-weight: 800; letter-spacing: -0.02em;
+      font-size: clamp(34px, 4vw, 48px);
+      line-height: 1.05;
+      color: var(--cv-navy-800);
+      margin: 0 0 10px;
+      text-wrap: balance;
+    }
+    .page-head p {
+      font-size: 16px; line-height: 1.55; color: var(--cv-fg-2);
+      margin: 0; max-width: 64ch; font-weight: 500;
+    }
+    .page-head .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--cv-green-700);
+      background: var(--cv-green-100);
+      padding: 6px 12px; border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    /* ====== Section ====== */
+    .section { margin-bottom: 32px; }
+    .section-title {
+      font-size: 13px; font-weight: 600;
+      color: var(--cv-fg-3);
+      letter-spacing: 0.005em;
+      margin: 0 0 10px 4px;
+    }
+
+    /* ====== List card ====== */
+    .list {
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .item {
+      background: #FFFFFF;
+      border: 1px solid #E8E6E1;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color 160ms ease, box-shadow 200ms ease;
+    }
+    .item:hover { border-color: #D6D3CD; }
+    .item.open {
+      border-color: #D6D3CD;
+      box-shadow: 0 6px 20px rgba(7, 21, 43, 0.04);
+    }
+
+    .item-row {
+      display: flex; align-items: center; gap: 12px;
+      width: 100%;
+      padding: 14px 16px;
+      background: transparent;
+      border: 0;
+      text-align: left;
+      cursor: pointer;
+      font-family: inherit;
+      color: inherit;
+    }
+    .item-row:focus-visible {
+      outline: 2px solid var(--cv-info);
+      outline-offset: 2px;
+      border-radius: 14px;
+    }
+    .chev {
+      width: 16px; height: 16px;
+      flex: 0 0 16px;
+      color: var(--cv-fg-3);
+      transition: transform 200ms var(--cv-ease-out);
+    }
+    .item.open .chev { transform: rotate(90deg); color: var(--cv-fg-2); }
+    .title-block {
+      flex: 1; min-width: 0;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .title-block .t {
+      font-size: 14px; font-weight: 600; color: var(--cv-fg-1);
+      letter-spacing: -0.005em;
+    }
+    .title-block .s {
+      font-size: 13px; font-weight: 500; color: var(--cv-fg-3);
+      line-height: 1.4;
+    }
+    .dot {
+      width: 8px; height: 8px; border-radius: 999px;
+      background: #6B8AC4;
+      flex: 0 0 8px;
+      box-shadow: 0 0 0 3px rgba(107, 138, 196, 0.12);
+    }
+
+    /* ====== Expanded panel ====== */
+    .item-body {
+      display: none;
+      border-top: 1px solid #EFEDE7;
+      padding: 0;
+      background: #FCFBF8;
+    }
+    .item.open .item-body { display: block; }
+
+    .preview-wrap {
+      padding: 14px 14px 12px;
+    }
+    .preview-frame {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      background: #fff;
+      display: block;
+      min-height: 80px;
+    }
+
+    .review-bar {
+      display: flex; gap: 8px; align-items: center;
+      padding: 10px 16px 14px;
+      flex-wrap: wrap;
+    }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; font-weight: 600;
+      padding: 6px 12px; border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: default;
+      user-select: none;
+    }
+    .pill.good {
+      background: #E6F4EC;
+      color: #2F7A53;
+      border-color: #C9E5D6;
+    }
+    .pill.work {
+      background: #FBE9E9;
+      color: #B23B3B;
+      border-color: #F4CFCF;
+    }
+    .pill .ico { width: 12px; height: 12px; }
+    .review-bar .meta {
+      margin-left: auto;
+      font-size: 11px; color: var(--cv-fg-3);
+      font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+
+    /* ====== Footer ====== */
+    .footer {
+      margin-top: 64px;
+      padding: 24px 4px 0;
+      border-top: 1px solid #EFEDE7;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; color: var(--cv-fg-3); font-weight: 500;
+      flex-wrap: wrap; gap: 8px;
+    }
+    .footer a { color: var(--cv-fg-2); text-decoration: none; font-weight: 600; }
+    .footer a:hover { text-decoration: underline; }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .shell { padding: 24px 16px 72px; }
+      .topbar-inner { padding: 12px 16px; }
+      .tb-link { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top">
+        <img src="./assets/logo-navy.png" alt="Coconut VA">
+        <div class="brand-meta">
+          <strong>Design System</strong>
+          <span>v1.0 · Internal</span>
+        </div>
+      </a>
+      <div class="topbar-actions">
+        <a class="tb-link" href="https://www.coconutva.com" target="_blank" rel="noopener">coconutva.com ↗</a>
+        <a class="tb-cta" href="./tokens.css" download>Download tokens</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell" id="top">
+
+    <header class="page-head">
+      <span class="tag">Brand canvas</span>
+      <h1>Coconut VA — Design System</h1>
+      <p>Friendly, premium, human remote-staffing brand. Navy + green core, soft cream surfaces, saturated solid-color halos behind portraits. Click any element to inspect it.</p>
+    </header>
+
+    <!-- Foundations -->
+    <section class="section">
+      <h2 class="section-title">Foundations</h2>
+      <div class="list">
+        <div class="item" data-min="120">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Brand &amp; logos</span>
+              <span class="s">Primary navy wordmark and inverse white version for dark surfaces</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/brand-logos.html" title="Brand logos preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">brand-logos.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Iconography</span>
+              <span class="s">Service pucks, hiring-process steps, and role icons in mint pucks</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/brand-iconography.html" title="Iconography preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">brand-iconography.html</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Type -->
+    <section class="section">
+      <h2 class="section-title">Type</h2>
+      <div class="list">
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Type — Display</span>
+              <span class="s">Manrope 800 · 88/64 · letter-spacing -0.025em · text-wrap balance</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/type-display.html" title="Display type preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">type-display.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Type — Heading scale</span>
+              <span class="s">H1–H5, weights 700–800, tight tracking, navy 800</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/type-headings.html" title="Heading scale preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">type-headings.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Type — Body &amp; meta</span>
+              <span class="s">Lede, body, body-sm and meta — secondary copy on cream/white surfaces</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/type-body.html" title="Body and meta type preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">type-body.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Type — Eyebrow &amp; stat</span>
+              <span class="s">Uppercase eyebrow labels and oversized hero metrics</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/type-stat.html" title="Eyebrow and stat preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">type-stat.html</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Colors -->
+    <section class="section">
+      <h2 class="section-title">Colors</h2>
+      <div class="list">
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Colors — Navy &amp; Green</span>
+              <span class="s">Core brand palette — navy 500–900, green 100–700</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/colors-core.html" title="Core colors preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">colors-core.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Colors — Talent halos</span>
+              <span class="s">Saturated solid-color circles behind portraits — one per profile, never gradients</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/colors-halos.html" title="Talent halo colors preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">colors-halos.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Colors — Surfaces &amp; pastels</span>
+              <span class="s">White, off-white, cream, mint — plus pastel gradient washes</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/colors-surfaces.html" title="Surfaces and pastels preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">colors-surfaces.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Colors — Semantic</span>
+              <span class="s">Success, warning, error, info — for system feedback</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/colors-semantic.html" title="Semantic colors preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">colors-semantic.html</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spacing, radius, shadow -->
+    <section class="section">
+      <h2 class="section-title">Spacing, radius &amp; shadow</h2>
+      <div class="list">
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Spacing scale</span>
+              <span class="s">4-pt rhythm — 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96 px</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/spacing-scale.html" title="Spacing scale preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">spacing-scale.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Radii</span>
+              <span class="s">Generous, friendly — pills for chips, 20–28 px for cards, full circle for icon pucks</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/radii.html" title="Radii preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">radii.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Shadows</span>
+              <span class="s">Soft, low-spread — no inner shadows, no colored shadows</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/shadows.html" title="Shadows preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">shadows.html</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Components -->
+    <section class="section">
+      <h2 class="section-title">Components</h2>
+      <div class="list">
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Buttons</span>
+              <span class="s">Primary navy pill, secondary green, ghost — pill radius, soft hover lift</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/components-buttons.html" title="Buttons preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">components-buttons.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Avatar stack</span>
+              <span class="s">Now with team photos inside the soft halo circles — “100K+ Talents”</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/components-avatar-stack.html" title="Avatar stack preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">components-avatar-stack.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Talent card</span>
+              <span class="s">White card · saturated halo · name + role + experience + intro video</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/components-talent-card.html" title="Talent card preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">components-talent-card.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Service cards</span>
+              <span class="s">Managed Talent and Direct Hire — the two-path entry point</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/components-service-cards.html" title="Service cards preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">components-service-cards.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Process steps</span>
+              <span class="s">Meet → Source → Match → Interview → Trial → Hired</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/components-process.html" title="Process steps preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">components-process.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Role chips</span>
+              <span class="s">Pill capsules — EA, Marketer, Social, Sales, Accounting, Front-end, Back-end…</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/components-role-chips.html" title="Role chips preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">components-role-chips.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Stat strip</span>
+              <span class="s">100K+ Talents · 600+ Companies · 4.9/5 Rating · 97% Retention</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/components-stat-strip.html" title="Stat strip preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">components-stat-strip.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">CTA bar</span>
+              <span class="s">Deep navy gradient with subtle tech-grid — “Ready to Meet Your Match?”</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/components-cta-bar.html" title="CTA bar preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">components-cta-bar.html</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <button class="item-row" type="button">
+            <svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="title-block">
+              <span class="t">Pricing</span>
+              <span class="s">Managed Talent and Direct Hire pricing tiles — flat-rate, transparent</span>
+            </span>
+            <span class="dot"></span>
+          </button>
+          <div class="item-body">
+            <div class="preview-wrap">
+              <iframe class="preview-frame" data-src="./preview/components-pricing.html" title="Pricing preview" loading="lazy"></iframe>
+            </div>
+            <div class="review-bar">
+              <span class="pill good">Looks good</span>
+              <span class="pill work">Needs work…</span>
+              <span class="meta">components-pricing.html</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Coconut VA · Design System · v1.0</span>
+      <span>
+        <a href="https://www.coconutva.com" target="_blank" rel="noopener">coconutva.com</a>
+        ·
+        <a href="./tokens.css" download>tokens.css</a>
+      </span>
+    </footer>
+
+  </main>
+
+  <script>
+    (function () {
+      function resizeFrame(iframe) {
+        try {
+          var doc = iframe.contentDocument;
+          if (!doc) return;
+          var h = Math.max(
+            doc.body ? doc.body.scrollHeight : 0,
+            doc.documentElement ? doc.documentElement.scrollHeight : 0
+          );
+          if (h > 0) iframe.style.height = (h + 8) + 'px';
+        } catch (e) {}
+      }
+
+      function loadFrame(item) {
+        var iframe = item.querySelector('iframe.preview-frame');
+        if (!iframe) return;
+        if (!iframe.getAttribute('src') && iframe.dataset.src) {
+          iframe.addEventListener('load', function () {
+            resizeFrame(iframe);
+            // Some webfonts may finish loading after onload — re-measure shortly after.
+            setTimeout(function () { resizeFrame(iframe); }, 220);
+            setTimeout(function () { resizeFrame(iframe); }, 700);
+          });
+          iframe.setAttribute('src', iframe.dataset.src);
+        } else {
+          resizeFrame(iframe);
+        }
+      }
+
+      var items = document.querySelectorAll('.item');
+      items.forEach(function (item) {
+        var row = item.querySelector('.item-row');
+        if (!row) return;
+        row.addEventListener('click', function () {
+          var open = item.classList.toggle('open');
+          if (open) loadFrame(item);
+        });
+      });
+
+      // Re-measure on window resize for any open iframes
+      window.addEventListener('resize', function () {
+        document.querySelectorAll('.item.open iframe.preview-frame').forEach(resizeFrame);
+      });
+    })();
+  </script>
+
+</body>
+</html>

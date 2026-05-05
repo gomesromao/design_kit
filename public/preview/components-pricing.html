@@ -1,0 +1,32 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Pricing card</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body{margin:0;padding:24px;background:#FAF6EE;font-family:var(--cv-font-body);display:flex;gap:14px;justify-content:center}
+  .pc{width:230px;background:#fff;border-radius:22px;padding:22px;box-shadow:var(--cv-shadow-card);position:relative}
+  .pc.featured{background:var(--cv-navy-800);color:#fff}
+  .badge{display:inline-block;background:var(--cv-green-100);color:var(--cv-green-700);font-weight:700;font-size:11px;padding:4px 10px;border-radius:999px;letter-spacing:0.04em;margin-bottom:10px}
+  .pc.featured .badge{background:var(--cv-green-600);color:#fff}
+  h3{font-family:var(--cv-font-display);font-weight:800;font-size:20px;margin:0 0 6px;letter-spacing:-0.01em}
+  .price{font-family:var(--cv-font-display);font-weight:800;font-size:32px;letter-spacing:-0.02em}
+  .mo{font-size:13px;font-weight:600;opacity:0.6}
+  .desc{font-size:13px;line-height:1.5;margin:8px 0 14px;opacity:0.85}
+  .btn{display:block;text-align:center;padding:11px;border-radius:999px;font-weight:700;font-size:13px;background:var(--cv-navy-800);color:#fff;text-decoration:none}
+  .pc.featured .btn{background:var(--cv-green-600)}
+</style></head>
+<body>
+  <div class="pc">
+    <div class="badge">DIRECT HIRE</div>
+    <h3>One-time fee</h3>
+    <div class="price">$3,500<span class="mo">+</span></div>
+    <div class="desc">You hire directly. We source, vet, and endorse. No markups.</div>
+    <a class="btn">Get started</a>
+  </div>
+  <div class="pc featured">
+    <div class="badge">MANAGED TALENT</div>
+    <h3>Month-to-month</h3>
+    <div class="price">$1,450<span class="mo">/mo</span></div>
+    <div class="desc">We handle payroll, benefits, and compliance. 40hr free trial.</div>
+    <a class="btn">Start hiring</a>
+  </div>
+</body></html>

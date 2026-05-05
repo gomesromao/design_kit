@@ -1,0 +1,24 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Buttons</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body{margin:0;padding:24px;background:#fff;font-family:var(--cv-font-body);display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .btn{font-family:var(--cv-font-display);font-weight:700;font-size:15px;padding:14px 24px;border-radius:999px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all 220ms cubic-bezier(0.16,1,0.3,1)}
+  .btn-primary{background:var(--cv-navy-800);color:#fff;box-shadow:var(--cv-shadow-sm)}
+  .btn-primary:hover{background:var(--cv-navy-900);transform:translateY(-1px);box-shadow:var(--cv-shadow-md)}
+  .btn-accent{background:var(--cv-green-600);color:#fff}
+  .btn-accent:hover{background:var(--cv-green-700)}
+  .btn-secondary{background:#fff;color:var(--cv-navy-800);border:1.5px solid var(--cv-border)}
+  .btn-secondary:hover{border-color:var(--cv-navy-800)}
+  .btn-ghost{background:transparent;color:var(--cv-navy-800);padding:14px 14px}
+  .btn-ghost:hover{color:var(--cv-green-700)}
+  .btn-sm{padding:9px 16px;font-size:13px}
+</style></head>
+<body>
+  <button class="btn btn-primary">Start Hiring →</button>
+  <button class="btn btn-accent">🔗 Find a Job</button>
+  <button class="btn btn-secondary">Learn more</button>
+  <button class="btn btn-ghost">Pricing</button>
+  <button class="btn btn-primary btn-sm">Book a call</button>
+  <button class="btn btn-secondary btn-sm">▷ Intro Video</button>
+</body></html>
